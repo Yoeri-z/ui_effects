@@ -42,7 +42,7 @@ final class OverlayRequestEvent<T> {
     required this.eventType,
     required this.callback,
     required this.debugProperties,
-  }) : _completer = Completer<T>();
+  }) : _completer = Completer<T?>();
 
   final RequestEventType eventType;
   final OverlayRequest<T> callback;

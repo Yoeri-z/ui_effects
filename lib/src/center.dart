@@ -52,10 +52,10 @@ class OverlayCenter {
     bool? requestFocus,
     Map<String, dynamic> debugProperties = const {},
   }) {
-    return request(
-      OverlayRequestEvent(
+    return request<T>(
+      OverlayRequestEvent<T>(
         eventType: RequestEventType.showDialog,
-        callback: (context) => m.showDialog(
+        callback: (context) => m.showDialog<T>(
           context: context,
           builder: (context) => dialog,
           barrierDismissible: barrierDismissible,
@@ -351,7 +351,7 @@ class OverlayCenter {
         This should not happen and it probably indicates an error in the package. 
         Please make an issue on overlay_center's github page.
     ''');
-
+    element.dispose();
     _registered.remove(element);
   }
 
@@ -384,6 +384,10 @@ class OverlayCenter {
   /// Useful in test environments to ensure no handlers leak between tests.
   @visibleForTesting
   void reset() {
+    for (var h in _registered) {
+      h.dispose();
+    }
+
     _registered.clear();
   }
 }

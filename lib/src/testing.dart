@@ -68,6 +68,7 @@ class InspectableOverlayHandler implements Handler {
   ///
   /// This should be called when the handler is no longer needed, typically
   /// at the end of a test suite.
+  @override
   void dispose() {
     _requestsController.close();
     _sendsController.close();
