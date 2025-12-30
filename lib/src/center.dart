@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart' as w;
 import 'package:flutter/cupertino.dart' as c;
 import 'package:flutter/material.dart' as m;
 
-import 'event.dart';
+import 'effect.dart';
 import 'handlers/handler.dart';
 import 'toast/toast.dart';
 import 'toast/toast_theme.dart';
@@ -52,7 +52,6 @@ class UICenter {
   }) {
     return request<T>(
       RequestEffect<T>(
-        eventType: RequestEventType.showDialog,
         callback: (context) => m.showDialog<T>(
           context: context,
           builder: (context) => dialog,
@@ -62,6 +61,7 @@ class UICenter {
           requestFocus: requestFocus,
         ),
         debugProperties: {
+          'caller': 'showDialog',
           'dialog': dialog,
           'barrierDismissible': barrierDismissible,
           'barrierLabel': barrierLabel,
@@ -84,10 +84,10 @@ class UICenter {
   }) {
     return send(
       SendEffect(
-        eventType: SendEventType.showBottomSheet,
         callback: (context) =>
             context.showBottomSheet(sheet, duration: duration),
         debugProperties: {
+          'caller': 'showBottomSheet',
           'sheet': sheet,
           'duration': duration,
           ...debugProperties,
@@ -104,12 +104,12 @@ class UICenter {
   }) {
     return send(
       SendEffect(
-        eventType: SendEventType.showSnackbar,
         callback: (context) => context.showSnackBar(
           snackBar,
           snackBarAnimationStyle: snackBarAnimationStyle,
         ),
         debugProperties: {
+          'caller': 'showSnackbar',
           'snackBar': snackBar,
           'snackBarAnimationStyle': snackBarAnimationStyle,
           ...debugProperties,
@@ -129,10 +129,10 @@ class UICenter {
   }) {
     return send(
       SendEffect(
-        eventType: SendEventType.showMaterialBanner,
         callback: (context) =>
             context.showMaterialBanner(banner, duration: duration),
         debugProperties: {
+          'caller': 'showMaterialBanner',
           'banner': banner,
           'duration': duration,
           ...debugProperties,
@@ -151,12 +151,15 @@ class UICenter {
   }) {
     return request(
       RequestEffect(
-        eventType: RequestEventType.showModalBottomSheet,
         callback: (context) => m.showModalBottomSheet(
           context: context,
           builder: (context) => sheet,
         ),
-        debugProperties: {'sheet': sheet, ...debugProperties},
+        debugProperties: {
+          'caller': 'showModalBottomSheet',
+          'sheet': sheet,
+          ...debugProperties,
+        },
       ),
     );
   }
@@ -174,7 +177,6 @@ class UICenter {
   }) {
     return request(
       RequestEffect(
-        eventType: RequestEventType.showCupertinoDialog,
         callback: (context) => c.showCupertinoDialog(
           context: context,
           builder: (context) => dialog,
@@ -183,6 +185,7 @@ class UICenter {
           requestFocus: requestFocus,
         ),
         debugProperties: {
+          'caller': 'showCupertinoDialog',
           'dialog': dialog,
           'barrierDismissible': barrierDismissible,
           'barrierLabel': barrierLabel,
@@ -203,7 +206,6 @@ class UICenter {
   }) {
     return request(
       RequestEffect(
-        eventType: RequestEventType.showCupertinoModalPopup,
         callback: (context) => c.showCupertinoModalPopup(
           context: context,
           builder: (context) => modal,
@@ -211,6 +213,7 @@ class UICenter {
           requestFocus: requestFocus,
         ),
         debugProperties: {
+          'caller': 'showCupertinoModalPopup',
           'modal': modal,
           'barrierDismissible': barrierDismissible,
           'requestFocus': requestFocus,
@@ -228,13 +231,13 @@ class UICenter {
   }) {
     return request(
       RequestEffect(
-        eventType: RequestEventType.showCupertinoSheet,
         callback: (context) => c.showCupertinoSheet(
           context: context,
           builder: (context) => sheet,
           enableDrag: enableDrag,
         ),
         debugProperties: {
+          'caller': 'showCupertinoSheet',
           'sheet': sheet,
           'enableDrag': enableDrag,
           ...debugProperties,
@@ -258,7 +261,6 @@ class UICenter {
   }) {
     send(
       SendEffect(
-        eventType: SendEventType.showToast,
         callback: (context) {
           context.showToast(
             message: message,
@@ -270,6 +272,7 @@ class UICenter {
           );
         },
         debugProperties: {
+          'caller': 'showToast',
           'message': message,
           'toastType': toastType,
           'alignment': alignment,

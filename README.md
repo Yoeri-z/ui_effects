@@ -73,14 +73,13 @@ extension NavigatorUICenter on UICenter {
   /// Navigate to a location using [GoRouter]
   void navigateTo(String location) => send(
     SendEffect(
-      // built in functions each have their own event type
-      // events should be given the type custom
-      eventType: SendEventType.custom,
       // our functionality goes here
       callback: (context) => context.go(location),
       // debug properties will be very usefull when testing.
-      // we will supply the navigation location as a property
-      debugProperties: {'location': location},
+      debugProperties: {
+        'caller' : 'navigateTo',
+        'location' : location,
+      },
     ),
   );
 }
@@ -106,6 +105,7 @@ test('Example test', ()async{
 
     // we can inspect the dialogs properties like so
     // debug properties have the same name as the args in the function
+    expect(event.debugProperties['caller'], 'showDialog')
     expect(event.debugProperties['dialog'], isA(MyDialog))
 
     //we can complete the event with a value, simulating a dialog close
