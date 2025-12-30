@@ -38,17 +38,25 @@ enum SendEventType {
 ///gives properties that were given to this request event at runtime.
 @immutable
 final class OverlayRequestEvent<T> {
+  /// Construct and overlay request event.
   OverlayRequestEvent({
     required this.eventType,
     required this.callback,
     required this.debugProperties,
   }) : _completer = Completer<T?>();
 
+  /// The type of the request event.
   final RequestEventType eventType;
+
+  /// Callback that is called when context is acquired
   final OverlayRequest<T> callback;
+
+  /// Debug properties about the event, readable when using a [InspectableOverlayHandler]
   final Map<String, dynamic> debugProperties;
+
   final Completer<T?> _completer;
 
+  /// The future this event will eventually return when the user input completes.
   Future<T?> get future => _completer.future;
 
   void complete(FutureOr<T?> value) {
@@ -59,13 +67,19 @@ final class OverlayRequestEvent<T> {
 ///An [OverlaySendEvent] is an event that is send to any handlers when an overlay needs to be shown that does not return a value and can not be awaited.
 @immutable
 final class OverlaySendEvent {
+  /// Construct an [OverlaySendEvent]
   const OverlaySendEvent({
     required this.eventType,
     required this.callback,
     required this.debugProperties,
   });
 
+  /// The type of the send event
   final SendEventType eventType;
+
+  /// Callback that is called when context is acquired
   final OverlaySend callback;
+
+  /// Debug properties about the event, readable when using a [InspectableOverlayHandler]
   final Map<String, dynamic> debugProperties;
 }

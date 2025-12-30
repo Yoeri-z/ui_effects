@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 
 /// Specifies the alignment of a toast on the screen.
@@ -171,17 +172,17 @@ class ToastThemeData with Diagnosticable {
 
   @override
   int get hashCode => Object.hash(
-        successBackgroundColor,
-        errorBackgroundColor,
-        neutralBackgroundColor,
-        successForegroundColor,
-        errorForegroundColor,
-        neutralForegroundColor,
-        successIcon,
-        errorIcon,
-        neutralIcon,
-        alignment,
-      );
+    successBackgroundColor,
+    errorBackgroundColor,
+    neutralBackgroundColor,
+    successForegroundColor,
+    errorForegroundColor,
+    neutralForegroundColor,
+    successIcon,
+    errorIcon,
+    neutralIcon,
+    alignment,
+  );
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

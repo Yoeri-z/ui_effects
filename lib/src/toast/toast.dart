@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'package:overlay_center/src/toast/toast_theme.dart';
+import 'toast_theme.dart';
 
 /// Provides the [showToast] method as an extension on [BuildContext].
 extension ToastScopeContext on BuildContext {

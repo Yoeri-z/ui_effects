@@ -1,4 +1,4 @@
-import 'package:overlay_center/src/event.dart';
+import '../event.dart';
 
 /// Defines the contract for an overlay handler.
 ///

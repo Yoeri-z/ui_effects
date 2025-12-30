@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 
-import 'package:overlay_center/src/center.dart';
-import 'package:overlay_center/src/event.dart';
-import 'package:overlay_center/src/handlers/handler.dart';
+import '../center.dart';
+import '../event.dart';
+import 'handler.dart';
 
 /// A widget that provides a [BuildContext] for the [OverlayCenter] to show overlays.
 ///

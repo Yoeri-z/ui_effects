@@ -1,9 +1,9 @@
 library;
 
-export 'package:overlay_center/src/center.dart';
-export 'package:overlay_center/src/event.dart';
-export 'package:overlay_center/src/context_extensions.dart';
-export 'package:overlay_center/src/handlers/element_handler.dart';
+export 'src/center.dart';
+export 'src/event.dart';
+export 'src/context_extensions.dart';
+export 'src/handlers/element_handler.dart';
 
-export 'package:overlay_center/src/toast/toast.dart';
-export 'package:overlay_center/src/toast/toast_theme.dart';
+export 'src/toast/toast.dart';
+export 'src/toast/toast_theme.dart';
