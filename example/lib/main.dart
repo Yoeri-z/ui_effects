@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:overlay_center/ui_effects.dart';
+import 'package:ui_effects/ui_effects.dart';
 
 UICenter get ui => UICenter.instance;
 
