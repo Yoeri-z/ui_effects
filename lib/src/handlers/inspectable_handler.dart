@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:async/async.dart';
-import 'package:overlay_center/src/center.dart';
-import 'package:overlay_center/src/event.dart';
-import 'package:overlay_center/src/handler.dart';
+
+import '../center.dart';
+import '../event.dart';
+import 'handler.dart';
 
 /// An implementation of [Handler] for testing purposes.
 ///

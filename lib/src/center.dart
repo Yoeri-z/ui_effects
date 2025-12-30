@@ -7,12 +7,12 @@ import 'package:flutter/material.dart' as m;
 import 'package:flutter/cupertino.dart' as c;
 
 import 'package:overlay_center/src/event.dart';
-import 'package:overlay_center/src/handler.dart';
+import 'package:overlay_center/src/handlers/handler.dart';
 import 'package:overlay_center/src/toast/toast.dart';
 import 'package:overlay_center/src/toast/toast_theme.dart';
-import 'package:overlay_center/src/widget.dart';
+import 'package:overlay_center/src/handlers/element_handler.dart';
 import 'package:overlay_center/src/context_extensions.dart';
-import 'package:overlay_center/src/testing.dart';
+import 'package:overlay_center/src/handlers/inspectable_handler.dart';
 
 /// A centralized manager for showing overlays like dialogs, bottom sheets, and snackbars.
 ///
