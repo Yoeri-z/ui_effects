@@ -231,27 +231,6 @@ void main() {
     });
   });
 
-  testWidgets('Toast showToast shows a toast', (tester) async {
-    await tester.pumpWidget(CupertinoSetupWidget(withScaffold: false));
-
-    ui.showToast(
-      message: 'Toast message',
-      toastType: .success,
-      fadeDuration: Duration(milliseconds: 50),
-    );
-
-    await tester.pumpAndSettle();
-
-    final toastFinder = find.text('Toast message');
-
-    expect(toastFinder, findsOneWidget);
-
-    await tester.pump(Duration(seconds: 2));
-    await tester.pumpAndSettle();
-
-    expect(toastFinder, findsNothing);
-  });
-
   group('Inspectable handler', () {
     late InspectableEffectHandler handler;
 
@@ -434,31 +413,6 @@ void main() {
 
       expect(event.debugProperties['caller'], 'showMaterialBanner');
       expect(event.debugProperties['banner'], isA<MaterialBanner>());
-    });
-
-    test('showToast launches a send event', () async {
-      ui.showToast(
-        message: 'test',
-        toastType: ToastType.success,
-        debugProperties: {'custom': Object()},
-      );
-
-      final event = await handler.sends.next;
-
-      expect(event.debugProperties.keys, [
-        'caller',
-        'message',
-        'toastType',
-        'alignment',
-        'toastDuration',
-        'fadeDuration',
-        'isDismissible',
-        'custom',
-      ]);
-
-      expect(event.debugProperties['caller'], 'showToast');
-      expect(event.debugProperties['message'], 'test');
-      expect(event.debugProperties['toastType'], ToastType.success);
     });
   });
 }

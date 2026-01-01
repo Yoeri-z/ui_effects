@@ -7,8 +7,6 @@ import 'package:flutter/material.dart' as m;
 
 import 'effect.dart';
 import 'handlers/handler.dart';
-import 'toast/toast.dart';
-import 'toast/toast_theme.dart';
 import 'handlers/element_handler.dart';
 import 'context_extensions.dart';
 
@@ -243,45 +241,6 @@ class UICenter {
           'caller': 'showCupertinoSheet',
           'sheet': sheet,
           'enableDrag': enableDrag,
-          ...debugProperties,
-        },
-      ),
-    );
-  }
-
-  /// Shows a toast message.
-  ///
-  /// Toasts are a popular way to provide feedback to users.
-  /// This is a custom ui effect provided by the package.
-  void showToast({
-    required String message,
-    required ToastType toastType,
-    ToastAlignment? alignment,
-    Duration toastDuration = const Duration(seconds: 2),
-    Duration fadeDuration = const Duration(milliseconds: 350),
-    bool isDismissible = false,
-    Map<String, dynamic> debugProperties = const {},
-  }) {
-    send(
-      SendEffect(
-        callback: (context) {
-          context.showToast(
-            message: message,
-            toastType: toastType,
-            alignment: alignment,
-            toastDuration: toastDuration,
-            fadeDuration: fadeDuration,
-            isDismissible: isDismissible,
-          );
-        },
-        debugProperties: {
-          'caller': 'showToast',
-          'message': message,
-          'toastType': toastType,
-          'alignment': alignment,
-          'toastDuration': toastDuration,
-          'fadeDuration': fadeDuration,
-          'isDismissible': isDismissible,
           ...debugProperties,
         },
       ),

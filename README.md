@@ -54,7 +54,6 @@ var val = await ui.showCupertinoSheet(MySheet())
 ui.showBottomSheet(MySheet())
 ui.showSnackbar(Snackbar(...))
 ui.showMaterialBanner(MaterialBanner(...))
-ui.showToast(message: ..., toastType: ...)
 ```
 
 ## Creating more ui effects
@@ -84,13 +83,10 @@ if you need to implement an effect that can return a value, use `request` and `R
 
 Because UI effects decouple the UI from the widget tree, it is also possible to test business logic that triggers UI effects without a full Flutter widget test.
 
-For this, you can use the `InspectableEffectHandler`. It's not exported by default, so you need to import it directly in your test file:
-
-```dart
-import 'package:ui_effects/src/handlers/inspectable_handler.dart';
-```
+For this, you can use the `InspectableEffectHandler`.
 
 Here is an example of how to use it:
+
 ```dart
 test('Example test', () async {
   // Create an inspectable handler.
