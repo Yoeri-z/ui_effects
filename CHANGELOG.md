@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Fixed a dependency issue that caused pub.dev analysis to fail
+
 ## 2.0.0
 
 - Removed toasts entirely from the package because it was not really in line with this package's purpose
