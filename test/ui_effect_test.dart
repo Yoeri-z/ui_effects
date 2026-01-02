@@ -236,6 +236,7 @@ void main() {
 
     setUp(() {
       handler = InspectableEffectHandler();
+      handler.whenRequest<bool>(answer: true);
     });
 
     tearDown(() {
@@ -243,10 +244,12 @@ void main() {
     });
 
     test('showDialog launches request event', () async {
-      final result = ui.showDialog<bool>(
+      final result = await ui.showDialog<bool>(
         Placeholder(),
         debugProperties: {'custom': Object()},
       );
+
+      expect(result, isTrue);
 
       final event = await handler.requests.next;
 
@@ -262,17 +265,15 @@ void main() {
 
       expect(event.debugProperties['caller'], 'showDialog');
       expect(event.debugProperties['dialog'], isA<Placeholder>());
-
-      event.complete(true);
-
-      expect(await result, isTrue);
     });
 
     test('showModalBottomSheet launches a request event', () async {
-      final result = ui.showModalBottomSheet<bool>(
+      final result = await ui.showModalBottomSheet<bool>(
         Placeholder(),
         debugProperties: {'custom': Object()},
       );
+
+      expect(result, isTrue);
 
       final event = await handler.requests.next;
 
@@ -280,17 +281,15 @@ void main() {
 
       expect(event.debugProperties['caller'], 'showModalBottomSheet');
       expect(event.debugProperties['sheet'], isA<Placeholder>());
-
-      event.complete(true);
-
-      expect(await result, isTrue);
     });
 
     test('showCupertinoDialog launches request event', () async {
-      final result = ui.showCupertinoDialog<bool>(
+      final result = await ui.showCupertinoDialog<bool>(
         Placeholder(),
         debugProperties: {'custom': Object()},
       );
+
+      expect(result, isTrue);
 
       final event = await handler.requests.next;
 
@@ -305,17 +304,15 @@ void main() {
 
       expect(event.debugProperties['caller'], 'showCupertinoDialog');
       expect(event.debugProperties['dialog'], isA<Placeholder>());
-
-      event.complete(true);
-
-      expect(await result, isTrue);
     });
 
     test('showCupertinoModalPopup launches request event', () async {
-      final result = ui.showCupertinoModalPopup<bool>(
+      final result = await ui.showCupertinoModalPopup<bool>(
         Placeholder(),
         debugProperties: {'custom': Object()},
       );
+
+      expect(result, isTrue);
 
       final event = await handler.requests.next;
 
@@ -329,17 +326,15 @@ void main() {
 
       expect(event.debugProperties['caller'], 'showCupertinoModalPopup');
       expect(event.debugProperties['modal'], isA<Placeholder>());
-
-      event.complete(true);
-
-      expect(await result, isTrue);
     });
 
     test('showCupertinoSheet launches request event', () async {
-      final result = ui.showCupertinoSheet<bool>(
+      final result = await ui.showCupertinoSheet<bool>(
         Placeholder(),
         debugProperties: {'custom': Object()},
       );
+
+      expect(result, isTrue);
 
       final event = await handler.requests.next;
 
@@ -352,10 +347,6 @@ void main() {
 
       expect(event.debugProperties['caller'], 'showCupertinoSheet');
       expect(event.debugProperties['sheet'], isA<Placeholder>());
-
-      event.complete(true);
-
-      expect(await result, isTrue);
     });
     test('showSnackbar launches a send event', () async {
       ui.showSnackBar(
@@ -413,6 +404,47 @@ void main() {
 
       expect(event.debugProperties['caller'], 'showMaterialBanner');
       expect(event.debugProperties['banner'], isA<MaterialBanner>());
+    });
+
+    group('whenRequest', () {
+      Future<String?> makeFooBarRequest() {
+        return ui.request<String>(
+          RequestEffect<String>(
+            callback: (_) {
+              throw UnimplementedError();
+            },
+            debugProperties: {'foo': 'bar'},
+          ),
+        );
+      }
+
+      test('returns a value based on type', () async {
+        handler.whenRequest<String>(answer: 'test');
+
+        final value = await makeFooBarRequest();
+
+        expect(value, 'test');
+      });
+
+      test('returns a value based on type and matcher', () async {
+        handler.whenRequest<String>(
+          matcher: (request) => request.debugProperties['foo'] == 'bar',
+          answer: 'test',
+        );
+
+        final value = await makeFooBarRequest();
+
+        expect(value, 'test');
+      });
+
+      test('throws when not matched', () async {
+        handler.whenRequest<String>(
+          matcher: (request) => request.debugProperties['foo'] == 'foo',
+          answer: 'test',
+        );
+
+        expectLater(makeFooBarRequest(), throwsStateError);
+      });
     });
   });
 }

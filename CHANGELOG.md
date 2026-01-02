@@ -1,3 +1,9 @@
+## 2.1.0
+
+- Added whenRequest declarative test method to `InspectableEffectHandler`
+- Added `requestStream` and `sendStream` to `InspectableEffectHandler`
+- request effects on `InspectableEffectHandler` will now throw when they do not have a `whenRequest` match.
+
 ## 2.0.1
 
 - Fixed a dependency issue that caused pub.dev analysis to fail

@@ -2,6 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 
+@immutable
+abstract class Effect {
+  const Effect();
+
+  /// Debug properties about the effect, readable when using a [InspectableEffectHandler]
+  Map<String, dynamic> get debugProperties;
+}
+
 /// A generic callback that receives a [BuildContext] and returns a value of type `Future<T?>`.
 typedef Request<T> = Future<T?> Function(BuildContext context);
 
@@ -14,7 +22,7 @@ typedef Send = void Function(BuildContext context);
 ///When testing, [debugProperties]
 ///gives properties that were given to this request event at runtime.
 @immutable
-final class RequestEffect<T> {
+final class RequestEffect<T> extends Effect {
   /// Construct a ui effect.
   RequestEffect({required this.callback, required this.debugProperties})
     : _completer = Completer<T?>();
@@ -22,7 +30,7 @@ final class RequestEffect<T> {
   /// Callback that is called when context is acquired
   final Request<T> callback;
 
-  /// Debug properties about the event, readable when using a [InspectableEffectHandler]
+  @override
   final Map<String, dynamic> debugProperties;
 
   final Completer<T?> _completer;
@@ -33,6 +41,18 @@ final class RequestEffect<T> {
   void complete(FutureOr<T?> value) {
     _completer.complete(value);
   }
+
+  void completeError(Object error, StackTrace stackTrace) {
+    _completer.completeError(error, stackTrace);
+  }
+
+  @override
+  String toString() {
+    final props = debugProperties.entries
+        .map((e) => '${e.key}=${e.value}')
+        .join(', ');
+    return 'RequestEffect<$T>($props)';
+  }
 }
 
 ///A [SendEffect] is an event that is send to any handlers
@@ -42,13 +62,21 @@ final class RequestEffect<T> {
 ///When testing, [debugProperties]
 ///gives properties that were given to this request event at runtime.
 @immutable
-final class SendEffect {
+final class SendEffect extends Effect {
   /// Construct an [SendEffect]
   const SendEffect({required this.callback, required this.debugProperties});
 
   /// Callback that is called when context is acquired
   final Send callback;
 
-  /// Debug properties about the event, readable when using a [InspectableEffectHandler]
+  @override
   final Map<String, dynamic> debugProperties;
+
+  @override
+  String toString() {
+    final props = debugProperties.entries
+        .map((e) => '${e.key}=${e.value}')
+        .join(', ');
+    return 'SendEffect($props)';
+  }
 }

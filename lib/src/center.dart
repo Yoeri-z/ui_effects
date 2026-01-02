@@ -10,6 +10,8 @@ import 'handlers/handler.dart';
 import 'handlers/element_handler.dart';
 import 'context_extensions.dart';
 
+typedef EffectCallback = void Function(Effect effect);
+
 /// A centralized manager for showing ui (side) effects like dialogs, bottom sheets, and snackbars.
 ///
 /// `UICenter` provides a simple, consistent API for triggering effects from

@@ -1,6 +1,6 @@
 name: ui_effects
 description: "Create ui side effects from anywhere in your code, easily extensible to integrate with any package."
-version: 2.0.1
+version: 2.1.0
 homepage: https://github.com/Yoeri-z/ui_effects
 repository: https://github.com/Yoeri-z/ui_effects
 issue_tracker: https://github.com/Yoeri-z/ui_effects/issues

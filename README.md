@@ -92,13 +92,14 @@ test('Example test', () async {
   // Create an inspectable handler.
   final handler = InspectableEffectHandler();
 
-  // It's good practice to trigger the UI effect in a microtask
-  // to ensure the handler is listening for it.
-  final future = Future.microtask(() {
-    return ui.showDialog<bool>(MyDialog());
-  });
+  //we can declaratively define a value to be returned for the request
+  handler.whenRequest<bool>(answer: true);
 
-  // Dialogs "request" data, so we await the next request.
+  final value = await ui.showDialog<bool>(MyDialog());
+
+  expect(value, isTrue);
+
+  // We can get events from the queue of request effects that occured.
   final event = await handler.requests.next;
 
   // We can inspect the dialog's properties:
@@ -106,12 +107,10 @@ test('Example test', () async {
   // Debug properties have the same name as the args in the function.
   expect(event.debugProperties['dialog'], isA<MyDialog>());
 
-  // We can complete the event with a value,
-  // in this case simulating a dialog close.
-  event.complete(true);
-
-  // The future from showDialog should have completed with the value now:
-  expect(await future, isTrue);
+  //Next to the request effect queue we can also get the sends queue and regular streams:
+  final sendEvent = await handler.sends.next;
+  final requestStream = handler.requestStream;
+  final sendStream = handler.sendStream;
 
   // Since only one handler is supposed to be registered at a time, we dispose it after.
   handler.dispose();
